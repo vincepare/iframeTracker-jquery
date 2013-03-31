@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>jQuery iframe click tracking plugin</title>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{background:#efefef; height:100%; padding-top:40px;}
+.navbar{position:absolute;}
+#wrap{margin:20px 20px 50px;}
+#credit{margin:20px 0 0;}
+#consoleDebug{position:fixed; top:60px; right:30px; z-index:9999; background:rgba(0,0,0,0.3);}
+#consoleDebug .alert{margin:20px;}
+</style>
+
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="../jquery.iframetracker.js"></script>
+<script>
+jQuery(document).ready(function($){
+	// Facebook iframe
+	$('.socialiframetrack_facebook iframe').iframeTracker({
+		blurCallback: function(){
+			$('<div class="alert alert-info">').html('Click on Facebook iframe').appendTo('#consoleDebug').delay(3000).fadeOut();
+		}
+	});
+	
+	// Google +1 iframe (must wait a few second until google renderer create the iframe)
+	setTimeout(function(){
+		$('.socialiframetrack_google iframe').iframeTracker({
+			blurCallback: function(){
+				$('<div class="alert alert-info">').html('Click on Google+1 iframe').appendTo('#consoleDebug').delay(3000).fadeOut();
+			}
+		});
+	}, 2000);
+	
+	// Other iframes (wrapped with .iframetrack)
+	$('.iframetrack iframe').iframeTracker({
+		blurCallback: function(){
+			$('<div class="alert alert-info">').html('Click on iframe : #' + this._overId).appendTo('#consoleDebug').delay(3000).fadeOut();
+		},
+		overCallback: function(element){
+			this._overId = $(element).parents('.iframetrack').attr('id'); // Saving the iframe wrapper id
+		},
+		outCallback: function(element){
+			this._overId = null; // Reset hover iframe wrapper id
+		},
+		_overId: null
+	});
+});
+</script>
+</head>
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<span class="brand white">jQuery iframe click tracking plugin demo</span>
+		</div>
+	</div>
+</div>
+
+<div id="wrap">
+	<p class="well">Read the tutorial on how the tracking works at <a href="http://www.finalclap.com/tuto/track-iframe-click-jquery-87/" target="_blank">http://www.finalclap.com/tuto/track-iframe-click-jquery-87/</a> (it's in French).</p>
+	
+	<h1>HTML Ipsum Presents</h1>	       
+	<p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+	<div class="iframetrack" id="iframe_red_1">
+		<iframe width="728" height="90" src="./sample-iframe/red.html" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+	</div>
+	<h2>Header Level 2</h2>
+	<ol>
+		<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+		<li>Aliquam tincidunt mauris eu risus.</li>
+		<li>
+			<strong>Facebook like &amp; Google+1 iframes</strong>
+			<div class="well">
+				<div class="socialiframetrack_facebook" style="float:left; margin-right:12px;" id="iframe_facebook_like">
+					<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.finalclap.com%2F&amp;send=false&amp;layout=box_count&amp;width=70&amp;show_faces=false&amp;font=arial&amp;colorscheme=light&amp;action=like&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:70px; height:80px;" allowTransparency="true"></iframe>
+				</div>
+				<div class="socialiframetrack_google" style="float:left;" id="iframe_google_plusone">
+					<div class="g-plusone" data-size="tall"></div>
+				</div>
+				<div style="clear:left;"></div>
+			</div>
+		</li>
+	</ol>
+	<blockquote>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p>
+	</blockquote>
+	<div class="iframetrack" id="iframe_blue">
+		<iframe width="336" height="280" src="./sample-iframe/blue.html" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+	</div>
+	<h3>Header Level 3</h3>
+	<ul>
+		<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+		<li>Aliquam tincidunt mauris eu risus.</li>
+	</ul>
+	<pre>
+	#header h1 a { 
+		display: block; 
+		width: 300px; 
+		height: 80px; 
+	}
+	</pre>
+	<div class="iframetrack" id="iframe_red_2">
+		<iframe width="250" height="250" src="./sample-iframe/red.html" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+	</div>
+	
+	<p id="credit">&copy; 2013 <a href="http://www.finalclap.com/" target="_blank">www.finalclap.com</a> using jQuery &amp; Bootstrap from twitter</p>
+</div><!-- #wrap -->
+
+<div id="consoleDebug"></div>
+
+<script>
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</body>
+</html>
