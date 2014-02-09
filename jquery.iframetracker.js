@@ -17,6 +17,7 @@
 			})
 			.bind('mouseout',  {handler: handler}, function(e){
 				e.data.handler.over = false;
+				$.iframeTracker.focusRetriever.focus();
 				try{ e.data.handler.outCallback(this); } catch(ex){}
 			});
 	};
@@ -56,7 +57,7 @@
 			this.focusRetriever = $('#focus_retriever');
 			this.focusRetrieved = false;
 			$(document).mousemove(function(e){ // Focus back to page
-				if( document.activeElement.tagName == 'IFRAME' ){
+				if( document.activeElement && document.activeElement.tagName == 'IFRAME' ){
 					$.iframeTracker.focusRetriever.focus();
 					$.iframeTracker.focusRetrieved = true;
 				}
