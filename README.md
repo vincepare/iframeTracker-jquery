@@ -14,7 +14,7 @@ Since it's impossible to read iframe content (DOM) from the parent page, the tra
 
 How to use ?
 ------------
-Match iframe elements that you want to track with a jQuery selector and call `iframeTracker` with a callback function that will be called when an click on the iframe is detected :
+Match iframe elements that you want to track with a jQuery selector and call `iframeTracker` with a callback function that will be called when a click on the iframe is detected :
 
 ```javascript
 jQuery(document).ready(function($){
