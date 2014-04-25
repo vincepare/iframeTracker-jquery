@@ -1,6 +1,6 @@
 /**
- * jQuery iframe click tracking plugin demo
- * Version 1.1 (2014-02-09)
+ * jQuery iframe click tracking plugin
+ * Version 1.2 (2014-04-25)
  * Copyright © 2014 Vincent Paré, www.finalclap.com
  */
 (function($){
@@ -56,7 +56,8 @@
 			$('body').append('<div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" /></div>');
 			this.focusRetriever = $('#focus_retriever');
 			this.focusRetrieved = false;
-			$(document).mousemove(function(e){ // Focus back to page
+			// Focus back to page
+			$(document).mousemove(function(e){
 				if( document.activeElement && document.activeElement.tagName == 'IFRAME' ){
 					$.iframeTracker.focusRetriever.focus();
 					$.iframeTracker.focusRetrieved = true;
@@ -71,10 +72,17 @@
 				});
 			}
 			
-			// Keep focus on window (fix bug IE8- elements focusables)
+			// Keep focus on window (fix bug IE8-, focusable elements)
 			if( this.isIE8AndOlder ){
 				$('body').click(function(e){ $(window).focus(); });
 				$('form').click(function(e){ e.stopPropagation(); });
+				
+				// Same thing for "post-DOMready" created forms (issue #6)
+				try{
+					$('body').on('click', 'form', function(e){ e.stopPropagation(); });
+				} catch(ex){
+					console.log("[iframeTracker] Please update jQuery to 1.7 or newer. (exception: " + ex.message + ")");
+				}
 			}
 		},
 		
