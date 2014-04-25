@@ -1,7 +1,7 @@
 /**
  * jQuery iframe click tracking plugin demo
  * Version 1.1 (2014-02-09)
- * Copyright © 2014 Vincent Paré, www.finalclap.com
+ * Copyright @ 2014 Vincent Parl www.finalclap.com
  */
 (function($){
 	// Registering new tracking handler
