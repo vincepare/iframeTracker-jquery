@@ -1,6 +1,6 @@
 /**
  * jQuery iframe click tracking plugin
- * Version 1.2 (2014-04-25)
+ * Version 1.3 (2014-05-16)
  * Copyright © 2014 Vincent Paré, www.finalclap.com
  */
 (function($){
@@ -53,7 +53,7 @@
 			});
 			
 			// Focus retriever
-			$('body').append('<div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" /></div>');
+			$('body').append('<div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true" /></div>');
 			this.focusRetriever = $('#focus_retriever');
 			this.focusRetrieved = false;
 			// Focus back to page
