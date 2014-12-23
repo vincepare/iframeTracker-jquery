@@ -1,7 +1,7 @@
 /**
  * jQuery iframe click tracking plugin
- * Version 1.3 (2014-05-16)
- * Copyright © 2014 Vincent Paré, www.finalclap.com
+ * Version 1.0.4 (2014-12-23)
+ * Copyright Â© 2014 Vincent ParÃ©, www.finalclap.com
  */
 (function($){
 	// Registering new tracking handler
@@ -13,12 +13,12 @@
 		$(this)
 			.bind('mouseover', {handler: handler}, function(e){
 				e.data.handler.over = true;
-				try{ e.data.handler.overCallback(this); } catch(ex){}
+				try {e.data.handler.overCallback(this);} catch(ex) {}
 			})
 			.bind('mouseout',  {handler: handler}, function(e){
 				e.data.handler.over = false;
 				$.iframeTracker.focusRetriever.focus();
-				try{ e.data.handler.outCallback(this); } catch(ex){}
+				try {e.data.handler.outCallback(this);} catch(ex) {}
 			});
 	};
 	
@@ -33,17 +33,17 @@
 		// Init (called once on document ready)
 		init: function(){
 			// Determine browser version (IE8-) ($.browser.msie is deprecated since jQuery 1.9)
-			try{
-				if( $.browser.msie == true && $.browser.version < 9 ){
+			try {
+				if ($.browser.msie == true && $.browser.version < 9) {
 					this.isIE8AndOlder = true;
 				}
-			} catch(ex){
-				try{
+			} catch(ex) {
+				try {
 					var matches = navigator.userAgent.match(/(msie) ([\w.]+)/i);
-					if( matches[2] < 9 ){
+					if (matches[2] < 9) {
 						this.isIE8AndOlder = true;
 					}
-				} catch(ex2){}
+				} catch(ex2) {}
 			}
 			
 			// Listening window blur
@@ -52,35 +52,34 @@
 				$.iframeTracker.windowLoseFocus(e);
 			});
 			
-			// Focus retriever
+			// Focus retriever (get the focus back to the page, on mouse move)
 			$('body').append('<div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true" /></div>');
 			this.focusRetriever = $('#focus_retriever');
 			this.focusRetrieved = false;
-			// Focus back to page
 			$(document).mousemove(function(e){
-				if( document.activeElement && document.activeElement.tagName == 'IFRAME' ){
+				if (document.activeElement && document.activeElement.tagName == 'IFRAME') {
 					$.iframeTracker.focusRetriever.focus();
 					$.iframeTracker.focusRetrieved = true;
 				}
 			});
-			// Blur doesn't works correctly on IE8-, so we need to trigger it manually
-			if( this.isIE8AndOlder ){
+			
+			// Special processing to make it work with my old friend IE8 (and older) ;)
+			if (this.isIE8AndOlder) {
+				// Blur doesn't works correctly on IE8-, so we need to trigger it manually
 				this.focusRetriever.blur(function(e){
 					e.stopPropagation();
 					e.preventDefault();
 					$.iframeTracker.windowLoseFocus(e);
 				});
-			}
-			
-			// Keep focus on window (fix bug IE8-, focusable elements)
-			if( this.isIE8AndOlder ){
+				
+				// Keep focus on window (fix bug IE8-, focusable elements)
 				$('body').click(function(e){ $(window).focus(); });
 				$('form').click(function(e){ e.stopPropagation(); });
 				
 				// Same thing for "post-DOMready" created forms (issue #6)
-				try{
+				try {
 					$('body').on('click', 'form', function(e){ e.stopPropagation(); });
-				} catch(ex){
+				} catch(ex) {
 					console.log("[iframeTracker] Please update jQuery to 1.7 or newer. (exception: " + ex.message + ")");
 				}
 			}
@@ -88,9 +87,9 @@
 		
 		// Blur on window => calling blurCallback for every handler with over=true
 		windowLoseFocus: function(event){
-			for(var i in this.handlersList){
-				if( this.handlersList[i].over == true ){
-					try{ this.handlersList[i].blurCallback(); } catch(ex){}
+			for (var i in this.handlersList) {
+				if (this.handlersList[i].over == true) {
+					try {this.handlersList[i].blurCallback();} catch(ex) {}
 				}
 			}
 		}
