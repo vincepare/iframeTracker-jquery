@@ -25,9 +25,8 @@
     "test",
     "tests",
     "demo",
-    "iframetracker.jquery.json",
-    "LICENSE.txt",
-    "README.md"
+    "README.md",
+    "package.json"
   ],
   "dependencies": {
     "jquery": ">=1.4.4"

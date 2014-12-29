@@ -9,13 +9,15 @@ This is very useful to :
  - track clicks on Youtube embed video player
  - ... and any other iframe !
 
+Try it now : [demo](http://cdn.rawgit.com/finalclap/iframeTracker-jquery/master/demo/index.html).
+
 How does it work ?
 ------------------
-Since it's impossible to read iframe content (DOM) from the parent page due to [same origin policy](http://en.wikipedia.org/wiki/Same-origin_policy), tracking is based on the blur event associated to a **page/iframe boundary monitoring system** telling over which iframe is the mouse cursor at any time.
+Since it's impossible to read iframe content (DOM) from the parent page due to the [same origin policy](http://en.wikipedia.org/wiki/Same-origin_policy), tracking is based on the blur event associated to a **page/iframe boundary monitoring system** telling over which iframe is the mouse cursor at any time.
 
 How to use ?
 ------------
-Match iframe elements that you want to track with a jQuery selector and call `iframeTracker` with a callback function that will be called when a click on the iframe is detected :
+Match the iframe elements you want to track with a jQuery selector and call `iframeTracker` with a callback function that will be called when a click on the iframe is detected :
 
 ```javascript
 jQuery(document).ready(function($){
@@ -47,12 +49,17 @@ jQuery(document).ready(function($){
 });
 ```
 
-See the demo page on github.
 Full tutorial available here : http://www.finalclap.com/tuto/track-iframe-click-jquery-87/ (it's in French).
 
 ----------
 
-### Install with bower
+### Install
+With npm :
+```bash
+npm install jquery.iframetracker
+```
+
+With bower :
 ```bash
 bower install jquery.iframetracker
 ```
