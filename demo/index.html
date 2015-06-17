@@ -17,6 +17,7 @@ body{background:#efefef; height:100%; padding-top:40px;}
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
 <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
 <script src="../jquery.iframetracker.js"></script>
 <script>
 jQuery(document).ready(function($){
@@ -48,6 +49,20 @@ jQuery(document).ready(function($){
 			this._overId = null; // Reset hover iframe wrapper id
 		},
 		_overId: null
+	});
+	
+	// Untrack
+	$('#untrack_iframe_red_1').click(function(e){
+		$('<div class="alert alert-danger">').html('untrack #iframe_red_1').appendTo('#consoleDebug').delay(3000).fadeOut();
+		$('#iframe_red_1 iframe').iframeTracker(false);
+	});
+	$('#untrack_iframe_red_2').click(function(e){
+		$('<div class="alert alert-danger">').html('untrack #iframe_red_2').appendTo('#consoleDebug').delay(3000).fadeOut();
+		$('#iframe_red_2 iframe').iframeTracker(null);
+	});
+	$('#untrack_iframe_blue').click(function(e){
+		$('<div class="alert alert-danger">').html('untrack #iframe_blue').appendTo('#consoleDebug').delay(3000).fadeOut();
+		$('#iframe_blue iframe').iframeTracker(false);
 	});
 });
 </script>
@@ -98,18 +113,24 @@ jQuery(document).ready(function($){
 		<li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
 		<li>Aliquam tincidunt mauris eu risus.</li>
 	</ul>
-	<pre>
-	#header h1 a { 
-		display: block; 
-		width: 300px; 
-		height: 80px; 
-	}
-	</pre>
+	<pre>#header h1 a { 
+	display: block; 
+	width: 300px; 
+	height: 80px; 
+}</pre>
 	<div class="iframetrack" id="iframe_red_2">
 		<iframe width="250" height="250" src="./sample-iframe/red.html" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
 	</div>
 	
-	<p id="credit">&copy; 2014 <a href="http://www.finalclap.com/" target="_blank">www.finalclap.com</a> using jQuery &amp; Bootstrap from twitter</p>
+	<h3>Untrack</h3>
+	<p>Remove tracking</p>
+	<div class="well">
+		<a class="btn btn-inverse" id="untrack_iframe_red_1">Untrack #iframe_red_1</a>
+		<a class="btn btn-inverse" id="untrack_iframe_red_2">Untrack #iframe_red_2</a>
+		<a class="btn btn-inverse" id="untrack_iframe_blue">Untrack #iframe_blue</a>
+	</div>
+	
+	<p id="credit">&copy; 2015 Vincent Paré (<a href="http://www.finalclap.com/" target="_blank">www.finalclap.com</a>), using jQuery &amp; Bootstrap from twitter</p>
 </div><!-- #wrap -->
 
 <div id="consoleDebug"></div>

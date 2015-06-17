@@ -1,11 +1,11 @@
 {
   "name": "jquery.iframetracker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "jQuery Plugin to track click on iframes (like Google Adsense or Facebook Like button).",
   "main": "jquery.iframetracker.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/finalclap/iframeTracker-jquery.git"
+    "url": "https://github.com/vincepare/iframeTracker-jquery.git"
   },
   "keywords": [
     "jquery-plugin",
@@ -18,7 +18,7 @@
   "author": "Vincent Paré",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/finalclap/iframeTracker-jquery/issues"
+    "url": "https://github.com/vincepare/iframeTracker-jquery/issues"
   },
-  "homepage": "https://github.com/finalclap/iframeTracker-jquery"
+  "homepage": "https://github.com/vincepare/iframeTracker-jquery"
 }
