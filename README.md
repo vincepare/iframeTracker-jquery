@@ -9,7 +9,7 @@ This is very useful to :
  - track clicks on Youtube embed video player
  - ... and any other iframe !
 
-Try it now : [demo](http://cdn.rawgit.com/finalclap/iframeTracker-jquery/master/demo/index.html).
+Try it now : [demo](http://cdn.rawgit.com/vincepare/iframeTracker-jquery/master/demo/index.html).
 
 How does it work ?
 ------------------
@@ -49,7 +49,16 @@ jQuery(document).ready(function($){
 });
 ```
 
+#### Cancel tracking
+You can remove tracker attached to on an iframe by calling `.iframeTracker()` with either `false` or `null` :
+```javascript
+$('#iframe_red_1 iframe').iframeTracker(false);
+$('#iframe_red_2 iframe').iframeTracker(null);
+```
+
 Full tutorial available here : http://www.finalclap.com/tuto/track-iframe-click-jquery-87/ (it's in French).
+
+Tested on jQuery `1.4.4`, `1.8.2`, `1.9.1`, `1.11.0` & `2.1.4`.
 
 ----------
 

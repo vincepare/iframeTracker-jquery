@@ -1,30 +1,27 @@
 /**
  * jQuery iframe click tracking plugin
- * Version 1.0.4 (2014-12-23)
- * Copyright © 2014 Vincent Paré, www.finalclap.com
+ *
+ * @author Vincent Paré (www.finalclap.com)
+ * @copyright © 2013-2015 Vincent Paré
+ * @license http://opensource.org/licenses/Apache-2.0
+ * @version 1.1.0
  */
 (function($){
-	// Registering new tracking handler
+	// Tracking handler manager
 	$.fn.iframeTracker = function(handler){
-		// Storing the new handler into handler list
-		$.iframeTracker.handlersList.push(handler);
-		
-		// Binding boundary listener
-		$(this)
-			.bind('mouseover', {handler: handler}, function(e){
-				e.data.handler.over = true;
-				try {e.data.handler.overCallback(this);} catch(ex) {}
-			})
-			.bind('mouseout',  {handler: handler}, function(e){
-				e.data.handler.over = false;
-				$.iframeTracker.focusRetriever.focus();
-				try {e.data.handler.outCallback(this);} catch(ex) {}
-			});
+		var target = this.get();
+		if (handler === null || handler === false) {
+			$.iframeTracker.untrack(target);
+		} else if (typeof handler == "object") {
+			$.iframeTracker.track(target, handler);
+		} else {
+			throw new Error("Wrong handler type (must be an object, or null|false to untrack)");
+		}
 	};
 	
 	// Iframe tracker common object
 	$.iframeTracker = {
-		// Attributes
+		// State
 		focusRetriever: null,  // Element used for restoring focus on window (element)
 		focusRetrieved: false, // Says if the focus was retrived on the current page (bool)
 		handlersList: [],      // Store a list of every trakers (created by calling $(selector).iframeTracker...)
@@ -85,7 +82,73 @@
 			}
 		},
 		
-		// Blur on window => calling blurCallback for every handler with over=true
+		
+		// Add tracker to target using handler (bind boundary listener + register handler)
+		// target: Array of target elements (native DOM elements)
+		// handler: User handler object
+		track: function(target, handler){
+			// Adding target elements references into handler
+			handler.target = target;
+			
+			// Storing the new handler into handler list
+			$.iframeTracker.handlersList.push(handler);
+			
+			// Binding boundary listener
+			$(target)
+				.bind('mouseover', {handler: handler}, $.iframeTracker.mouseoverListener)
+				.bind('mouseout',  {handler: handler}, $.iframeTracker.mouseoutListener);
+		},
+		
+		// Remove tracking on target elements
+		// target: Array of target elements (native DOM elements)
+		untrack: function(target){
+			if (typeof Array.prototype.filter != "function") {
+				console.log("Your browser doesn't support Array filter, untrack disabled");
+				return;
+			}
+			
+			// Unbinding boundary listener
+			$(target).each(function(index){
+				$(this)
+					.unbind('mouseover', $.iframeTracker.mouseoverListener)
+					.unbind('mouseout', $.iframeTracker.mouseoutListener);
+			});
+			
+			// Handler garbage collector
+			var nullFilter = function(value){
+				return value === null ? false : true;
+			};
+			for (var i in this.handlersList) {
+				// Prune target
+				for (var j in this.handlersList[i].target) {
+					if ($.inArray(this.handlersList[i].target[j], target) !== -1) {
+						this.handlersList[i].target[j] = null;
+					}
+				}
+				this.handlersList[i].target = this.handlersList[i].target.filter(nullFilter);
+				
+				// Delete handler if unused
+				if (this.handlersList[i].target.length == 0) {
+					this.handlersList[i] = null;
+				}
+			}
+			this.handlersList = this.handlersList.filter(nullFilter);
+		},
+		
+		// Target mouseover event listener
+		mouseoverListener: function(e){
+			e.data.handler.over = true;
+			try {e.data.handler.overCallback(this);} catch(ex) {}
+		},
+		
+		// Target mouseout event listener
+		mouseoutListener: function(e){
+			e.data.handler.over = false;
+			$.iframeTracker.focusRetriever.focus();
+			try {e.data.handler.outCallback(this);} catch(ex) {}
+		},
+		
+		// Calls blurCallback for every handler with over=true on window blur
 		windowLoseFocus: function(event){
 			for (var i in this.handlersList) {
 				if (this.handlersList[i].over == true) {
