@@ -1,10 +1,10 @@
-/**
+/*!
  * jQuery iframe click tracking plugin
  *
- * @author Vincent Paré (www.finalclap.com)
- * @copyright © 2013-2015 Vincent Paré
+ * @author Vincent Paré
+ * @copyright © 2013-<%= grunt.template.today("yyyy") %> Vincent Paré
  * @license http://opensource.org/licenses/Apache-2.0
- * @version 1.1.0
+ * @version <%= pkg.version %>
  */
 (function($){
 	// Tracking handler manager

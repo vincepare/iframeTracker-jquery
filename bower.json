@@ -6,7 +6,7 @@
     "Vincent Paré"
   ],
   "description": "jQuery Plugin to track click on iframes (like Google Adsense or Facebook Like button).",
-  "main": "jquery.iframetracker.js",
+  "main": "dist/jquery.iframetracker.js",
   "moduleType": [
     "globals"
   ],
@@ -25,6 +25,8 @@
     "test",
     "tests",
     "demo",
+    "src",
+    "Gruntfile.js",
     "README.md",
     "package.json"
   ],
