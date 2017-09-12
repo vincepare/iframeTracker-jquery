@@ -31,11 +31,16 @@ module.exports = function(grunt) {
 				src: ["src/jquery.iframetracker.js"],
 				dest: "dist/jquery.iframetracker.min.js"
 			}
+		},
+
+		eslint: {
+			target: ["src/**/*.js", "Gruntfile.js"]
 		}
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-copy");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
+	grunt.loadNpmTasks("grunt-eslint");
 
-	grunt.registerTask("default", ["copy", "uglify"]);
+	grunt.registerTask("default", ["eslint", "copy", "uglify"]);
 };

@@ -1,0 +1,57 @@
+{
+  "root": true,
+  
+  "extends": "jquery",
+  
+  "globals": {
+    "window": true,
+    "jQuery": true,
+    "define": true,
+    "module": true,
+    "noGlobal": true,
+    "document": true,
+    "navigator": true,
+    "console": true
+  },
+  
+  "rules": {
+    "space-in-parens": "off",
+    "quotes": [
+      "warn",
+      "double",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "computed-property-spacing": ["error", "never"],
+    "max-len": [
+      "warn",
+      {
+        "code": 100,
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true
+      }
+    ],
+    "lines-around-comment": [
+      "error",
+      {
+        "beforeLineComment": true,
+        "allowBlockStart": true,
+        "allowObjectStart": true
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "none"
+      }
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "never"
+    ],
+    "strict": "off"
+  }
+}
