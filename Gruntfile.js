@@ -34,13 +34,18 @@ module.exports = function(grunt) {
 		},
 
 		eslint: {
-			target: ["src/**/*.js", "Gruntfile.js"]
+			target: ["src/**/*.js", "test/**/*.js", "Gruntfile.js"]
+		},
+
+		qunit: {
+			files: ["test/**/*.html"]
 		}
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-copy");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-eslint");
+	grunt.loadNpmTasks("grunt-contrib-qunit");
 
-	grunt.registerTask("default", ["eslint", "copy", "uglify"]);
+	grunt.registerTask("default", ["eslint", "qunit", "copy", "uglify"]);
 };

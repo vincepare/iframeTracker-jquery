@@ -1,0 +1,5 @@
+{
+  "globals": {
+    "QUnit": true
+  }
+}

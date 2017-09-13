@@ -28,6 +28,7 @@
     "src",
     "Gruntfile.js",
     "README.md",
+    "package-lock.json",
     "package.json"
   ],
   "dependencies": {
