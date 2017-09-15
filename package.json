@@ -26,6 +26,9 @@
     "build": "grunt",
     "prepare": "grunt"
   },
+  "peerDependencies": {
+    "jquery": ">=1.4.4"
+  },
   "devDependencies": {
     "eslint-config-jquery": "^1.0.1",
     "grunt": "^1.0.1",
