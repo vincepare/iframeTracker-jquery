@@ -1,0 +1,17 @@
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define({{#if amdModuleId}}'{{amdModuleId}}', {{/if}}[{{{amdDependencies.wrapped}}}], function ({{{amdDependencies.params}}}) {
+			return ({{#if objectToExport}}root['{{{objectToExport}}}'] = {{/if}}factory({{{amdDependencies.params}}}));
+		});
+	} else if (typeof module === 'object' && module.exports) {
+		module.exports = factory({{{cjsDependencies.wrapped}}});
+	} else {
+		{{#if globalAlias}}root['{{{globalAlias}}}'] = {{else}}{{#if objectToExport}}root['{{{objectToExport}}}'] = {{/if}}{{/if}}factory({{{globalDependencies.normal}}});
+	}
+}(this, function ({{dependencies}}) {
+
+{{{code}}}
+{{#if objectToExport}}
+return {{{objectToExport}}};
+{{/if}}
+}));

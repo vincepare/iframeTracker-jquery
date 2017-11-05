@@ -23,12 +23,24 @@ module.exports = function(grunt) {
 			}
 		},
 
+		umd: {
+			all: {
+				src: "dist/jquery.iframetracker.js",
+				template: "./src/umd.hbs",
+				deps: {
+					"default": ["jQuery"],
+					amd: ["jquery"],
+					cjs: ["jquery"]
+				}
+			}
+		},
+
 		uglify: {
 			options: {
 				banner: "<%= banner %>"
 			},
 			main: {
-				src: ["src/jquery.iframetracker.js"],
+				src: ["dist/jquery.iframetracker.js"],
 				dest: "dist/jquery.iframetracker.min.js"
 			}
 		},
@@ -46,6 +58,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-eslint");
 	grunt.loadNpmTasks("grunt-contrib-qunit");
+	grunt.loadNpmTasks("grunt-umd");
 
-	grunt.registerTask("default", ["eslint", "qunit", "copy", "uglify"]);
+	grunt.registerTask("compile", ["copy", "umd", "uglify"]);
+	grunt.registerTask("default", ["eslint", "qunit", "compile"]);
 };
