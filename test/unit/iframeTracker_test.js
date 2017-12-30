@@ -4,16 +4,19 @@
 	 */
 	var stepHandlerFactory = function(assert) {
 		return {
-			blurCallback: function() {
+			blurCallback: function(event) {
 				assert.step("blur " + this.iframeId);
+				assert.ok(event instanceof $.Event, "event is an Event");
 			},
-			overCallback: function(element) {
+			overCallback: function(element, event) {
 				this.iframeId = $(element).attr("id");
 				assert.step("over " + this.iframeId);
+				assert.ok(event instanceof $.Event, "event is an Event");
 			},
-			outCallback: function(element) {
+			outCallback: function(element, event) {
 				this.iframeId = null;
 				assert.step("out " + $(element).attr("id"));
+				assert.ok(event instanceof $.Event, "event is an Event");
 			}
 		};
 	};

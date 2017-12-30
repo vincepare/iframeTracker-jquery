@@ -23,7 +23,7 @@ body{background:#efefef; height:100%; padding-top:40px;}
 jQuery(document).ready(function($){
 	// Facebook iframe
 	$('.socialiframetrack_facebook iframe').iframeTracker({
-		blurCallback: function(){
+		blurCallback: function(event){
 			$('<div class="alert alert-info">').html('Click on Facebook iframe').appendTo('#consoleDebug').delay(3000).fadeOut();
 		}
 	});
@@ -31,7 +31,7 @@ jQuery(document).ready(function($){
 	// Google +1 iframe (must wait a few second until google renderer create the iframe)
 	setTimeout(function(){
 		$('.socialiframetrack_google iframe').iframeTracker({
-			blurCallback: function(){
+			blurCallback: function(event){
 				$('<div class="alert alert-info">').html('Click on Google+1 iframe').appendTo('#consoleDebug').delay(3000).fadeOut();
 			}
 		});
@@ -39,13 +39,13 @@ jQuery(document).ready(function($){
 	
 	// Other iframes (wrapped with .iframetrack)
 	$('.iframetrack iframe').iframeTracker({
-		blurCallback: function(){
+		blurCallback: function(event){
 			$('<div class="alert alert-info">').html('Click on iframe : #' + this._overId).appendTo('#consoleDebug').delay(3000).fadeOut();
 		},
-		overCallback: function(element){
+		overCallback: function(element, event){
 			this._overId = $(element).parents('.iframetrack').attr('id'); // Saving the iframe wrapper id
 		},
-		outCallback: function(element){
+		outCallback: function(element, event){
 			this._overId = null; // Reset hover iframe wrapper id
 		},
 		_overId: null

@@ -22,7 +22,7 @@ Match the iframe elements you want to track with a jQuery selector and call `ifr
 ```javascript
 jQuery(document).ready(function($){
 	$('.iframe_wrap iframe').iframeTracker({
-		blurCallback: function(){
+		blurCallback: function(event){
 			// Do something when the iframe is clicked (like firing an XHR request)
 		}
 	});
@@ -34,14 +34,14 @@ jQuery(document).ready(function($){
 ```javascript
 jQuery(document).ready(function($){
 	$('.iframe_wrap iframe').iframeTracker({
-		blurCallback: function(){
+		blurCallback: function(event){
 			// Do something when iframe is clicked (like firing an XHR request)
 			// You can know which iframe element is clicked via this._overId
 		},
-		overCallback: function(element){
+		overCallback: function(element, event){
 			this._overId = $(element).parents('.iframe_wrap').attr('id'); // Saving the iframe wrapper id
 		},
-		outCallback: function(element){
+		outCallback: function(element, event){
 			this._overId = null; // Reset hover iframe wrapper id
 		},
 		_overId: null
@@ -50,7 +50,7 @@ jQuery(document).ready(function($){
 ```
 
 #### Cancel tracking
-You can remove tracker attached to on an iframe by calling `.iframeTracker()` with either `false` or `null` :
+You can remove a tracker attached to an iframe by calling `.iframeTracker()` with either `false` or `null` :
 ```javascript
 $('#iframe_red_1 iframe').iframeTracker(false);
 $('#iframe_red_2 iframe').iframeTracker(null);
@@ -74,7 +74,7 @@ bower install jquery.iframetracker
 ```
 
 ### About mobile devices
-This plugin doesn't work on mobile devices such as smartphones and tablets, because this hardware uses a touchscreen instead of a mouse as click input. This design makes the boundary monitoring trick useless.
+This plugin doesn't work on mobile devices such as smartphones and tablets, because this hardware uses a touchscreen instead of a mouse as click input. This design makes the boundary monitoring trick ineffective.
 
 ### Donate
 Donations are welcome :) via [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=YXDJFGF8GCGLA&item_name=Vincent%20Par%e9%20-%20www.finalclap.com&item_number=iframeTracker%2dgithub&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted), [Flattr](https://flattr.com/submit/auto?user_id=finalclap&url=https://github.com/finalclap/iframeTracker-jquery&title=iframeTracker%20jQuery%20Plugin&language=&tags=github&category=software) or Bitcoin at this address : `3G5uTti2JPAT738uDeQXjrN7tUj2NZjt6M` or by flashing this lovely QR code :

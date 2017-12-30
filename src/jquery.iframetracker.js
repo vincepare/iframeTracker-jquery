@@ -144,7 +144,7 @@
 		mouseoverListener: function(e) {
 			e.data.handler.over = true;
 			try {
-				e.data.handler.overCallback(this);
+				e.data.handler.overCallback(this, e);
 			} catch (ex) {}
 		},
 
@@ -153,16 +153,16 @@
 			e.data.handler.over = false;
 			$.iframeTracker.focusRetriever.focus();
 			try {
-				e.data.handler.outCallback(this);
+				e.data.handler.outCallback(this, e);
 			} catch (ex) {}
 		},
 
 		// Calls blurCallback for every handler with over=true on window blur
-		windowLoseFocus: function(event) {
+		windowLoseFocus: function(e) {
 			for (var i in this.handlersList) {
 				if (this.handlersList[i].over === true) {
 					try {
-						this.handlersList[i].blurCallback();
+						this.handlersList[i].blurCallback(e);
 					} catch (ex) {}
 				}
 			}
