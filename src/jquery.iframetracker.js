@@ -9,6 +9,13 @@
 (function($) {
 	// Tracking handler manager
 	$.fn.iframeTracker = function(handler) {
+		// Building handler object from handler function
+		if (typeof handler == "function") {
+			handler = {
+				blurCallback: handler
+			};
+		}
+
 		var target = this.get();
 		if (handler === null || handler === false) {
 			$.iframeTracker.untrack(target);

@@ -22,9 +22,19 @@ Match the iframe elements you want to track with a jQuery selector and call `ifr
 ```javascript
 jQuery(document).ready(function($){
 	$('.iframe_wrap iframe').iframeTracker({
-		blurCallback: function(event){
+		blurCallback: function(event) {
 			// Do something when the iframe is clicked (like firing an XHR request)
 		}
+	});
+});
+```
+
+You can also just pass a function, that will be then registered as the `blurCallback` :
+
+```javascript
+jQuery(document).ready(function($){
+	$('.iframe_wrap iframe').iframeTracker(function(event) {
+		// Do something when the iframe is clicked (like firing an XHR request)
 	});
 });
 ```
@@ -34,14 +44,14 @@ jQuery(document).ready(function($){
 ```javascript
 jQuery(document).ready(function($){
 	$('.iframe_wrap iframe').iframeTracker({
-		blurCallback: function(event){
+		blurCallback: function(event) {
 			// Do something when iframe is clicked (like firing an XHR request)
 			// You can know which iframe element is clicked via this._overId
 		},
-		overCallback: function(element, event){
+		overCallback: function(element, event) {
 			this._overId = $(element).parents('.iframe_wrap').attr('id'); // Saving the iframe wrapper id
 		},
-		outCallback: function(element, event){
+		outCallback: function(element, event) {
 			this._overId = null; // Reset hover iframe wrapper id
 		},
 		_overId: null
@@ -58,7 +68,7 @@ $('#iframe_red_2 iframe').iframeTracker(null);
 
 Full tutorial available here : http://www.finalclap.com/tuto/track-iframe-click-jquery-87/ (it's in French).
 
-Tested on jQuery `1.4.4`, `1.8.2`, `1.9.1`, `1.11.0` & `2.1.4`.
+Tested on jQuery `1.4.4` to `1.11.0`, `2.1.4`  & `3.2.1`.
 
 ----------
 

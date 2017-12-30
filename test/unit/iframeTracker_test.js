@@ -90,6 +90,13 @@
 		);
 	});
 
+	QUnit.test("Handler building", function(assert) {
+		var blurCallback = function(event) {};
+		$("#qunit-fixture #red_iframe").iframeTracker(blurCallback);
+		assert.ok(typeof $.iframeTracker.handlersList[0] == "object", "Handler build success");
+		assert.ok($.iframeTracker.handlersList[0].blurCallback ===  blurCallback, "Blur callback bound");
+	});
+
 	QUnit.test("Workflow : over, blur", function(assert) {
 		$("#qunit-fixture iframe").iframeTracker(stepHandlerFactory(assert));
 		$("#qunit-fixture #red_iframe").trigger("mouseover");
