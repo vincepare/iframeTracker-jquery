@@ -75,6 +75,11 @@
 		assert.ok($.iframeTracker.handlersList.length === 0, "handlersList is empty");
 	});
 
+	QUnit.test("Chaining", function(assert) {
+		var tracker = $("#qunit-fixture #red_iframe").iframeTracker(false);
+		assert.ok(tracker instanceof $, "fn is chainable");
+	});
+
 	QUnit.test("fn invalid argument", function(assert) {
 		assert.throws(
 			function() {

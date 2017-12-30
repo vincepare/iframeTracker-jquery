@@ -17,6 +17,7 @@
 		} else {
 			throw new Error("Wrong handler type (must be an object, or null|false to untrack)");
 		}
+		return this;
 	};
 
 	// Iframe tracker common object
