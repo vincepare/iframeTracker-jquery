@@ -9,7 +9,7 @@ This is very useful to :
  - track clicks on Youtube embed video player
  - ... and any other iframe !
 
-Try it now : [demo](http://cdn.rawgit.com/vincepare/iframeTracker-jquery/master/demo/index.html).
+Try it now : [demo](https://cdn.rawgit.com/vincepare/iframeTracker-jquery/master/demo/index.html).
 
 How does it work ?
 ------------------
