@@ -1,6 +1,6 @@
 {
   "name": "jquery.iframetracker",
-  "version": "2.1.0-pre",
+  "version": "2.1.0",
   "homepage": "https://github.com/vincepare/iframeTracker-jquery",
   "authors": [
     "Vincent Paré"

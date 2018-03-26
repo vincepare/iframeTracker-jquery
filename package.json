@@ -1,6 +1,6 @@
 {
   "name": "jquery.iframetracker",
-  "version": "2.1.0-pre",
+  "version": "2.1.0",
   "description": "jQuery Plugin to track click on iframes (like Google Adsense or Facebook Like button).",
   "main": "dist/jquery.iframetracker.js",
   "repository": {
