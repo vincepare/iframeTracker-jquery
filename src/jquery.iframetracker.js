@@ -61,12 +61,6 @@
 			$("body").append('<div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" type="text" value="" id="focus_retriever" readonly="true" /></div>');
 			this.focusRetriever = $("#focus_retriever");
 			this.focusRetrieved = false;
-			$(document).mousemove(function(e) {
-				if (document.activeElement && document.activeElement.tagName === "IFRAME") {
-					$.iframeTracker.focusRetriever.focus();
-					$.iframeTracker.focusRetrieved = true;
-				}
-			});
 
 			// Special processing to make it work with my old friend IE8 (and older) ;)
 			if (this.isIE8AndOlder) {
@@ -151,6 +145,7 @@
 		// Target mouseover event listener
 		mouseoverListener: function(e) {
 			e.data.handler.over = true;
+			$.iframeTracker.retrieveFocus();
 			try {
 				e.data.handler.overCallback(this, e);
 			} catch (ex) {}
@@ -159,10 +154,18 @@
 		// Target mouseout event listener
 		mouseoutListener: function(e) {
 			e.data.handler.over = false;
-			$.iframeTracker.focusRetriever.focus();
+			$.iframeTracker.retrieveFocus();
 			try {
 				e.data.handler.outCallback(this, e);
 			} catch (ex) {}
+		},
+
+		// Give back focus from an iframe to parent page
+		retrieveFocus: function() {
+			if (document.activeElement && document.activeElement.tagName === "IFRAME") {
+				$.iframeTracker.focusRetriever.focus();
+				$.iframeTracker.focusRetrieved = true;
+			}
 		},
 
 		// Calls blurCallback for every handler with over=true on window blur

@@ -37,11 +37,14 @@
 	});
 
 	QUnit.test("Focus retriever", function(assert) {
+		$("#qunit-fixture iframe").iframeTracker({});
 		assert.ok(document.activeElement === document.querySelector("body"), "<body> has focus");
 		$(document).trigger("mousemove");
 		assert.ok(document.activeElement === document.querySelector("body"), "<body> still has focus");
+		$("#qunit-fixture #red_iframe").trigger("mouseover");
 		$("#qunit-fixture #red_iframe").focus();
 		assert.ok(document.activeElement === document.querySelector("#qunit-fixture #red_iframe"), "Focus on an iframe");
+		$("#qunit-fixture #red_iframe").trigger("mouseout");
 		$(document).trigger("mousemove");
 		assert.ok(document.activeElement === $.iframeTracker.focusRetriever[0], "Focus retrieved (element)");
 		assert.ok($.iframeTracker.focusRetrieved === true, "Focus retrieved (flag)");
@@ -136,5 +139,23 @@
 			"blur red_iframe",
 			"out red_iframe"
 		]);
+	});
+
+	QUnit.test("Workflow : from untracked iframe to tracked iframe", function(assert) {
+		var clicked = false;
+		$("#qunit-fixture #red_iframe").iframeTracker(function(event) {
+			clicked = true;
+		});
+		$("#qunit-fixture #blue_iframe").focus();
+		assert.ok(document.activeElement === document.querySelector("#qunit-fixture #blue_iframe"), "Focus on untracked iframe");
+		$("#qunit-fixture #blue_iframe").trigger("mouseout");
+		$(document).trigger("mousemove");
+		$("#qunit-fixture #red_iframe").trigger("mouseover");
+		assert.ok(document.activeElement === $.iframeTracker.focusRetriever[0], "Focus retrieved (element)");
+		assert.ok($.iframeTracker.focusRetrieved === true, "Focus retrieved (flag)");
+		assert.ok(clicked === false, "Not yet clicked");
+		$("#qunit-fixture #red_iframe").focus();
+		assert.ok(clicked === true, "Clicked");
+		assert.ok(document.activeElement === document.querySelector("#qunit-fixture #red_iframe"), "Focus on tracked iframe");
 	});
 })(jQuery);
